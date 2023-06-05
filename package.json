@@ -1,0 +1,16 @@
+{
+  "name": "backend-social-networks",
+  "version": "1.0.0",
+  "description": "Social Network API backend routes",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon index",
+    "seed": "node utils/seed"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^7.0.2"
+  }
+}
