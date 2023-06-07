@@ -56,6 +56,17 @@ module.exports = {
         }
     },
     async deleteUser(req, res) {
+        try {
+            const user = User.findOneAndRemove({ _id: req.params.id });
+            
+            if(!user) {
+                return res.status(404).json({ message: 'No user with that ID' })
+            }
 
+            res.json({ message: 'User successfully deleted' });
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json(error);
+        }
     },
 }
