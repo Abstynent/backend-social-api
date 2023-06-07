@@ -14,7 +14,7 @@ module.exports = {
     // get single user by ID
     async getSingleUser(req, res) {
         try {
-            const user = await User.findOne({ _id: req.params.id});
+            const user = await User.findOne({ _id: req.params.userId});
 
             if(!user) {
                 return res.status(404).json({ message: 'No user with that ID' });
@@ -37,10 +37,11 @@ module.exports = {
             return res.status(500).json(error);
         }
     },
+    // update user by id
     async updateUser(req, res) {
         try {
             const user = await User.findOneAndUpdate(
-                { _id: req.params.id },
+                { _id: req.params.userId },
                 req.body,
                 { new: true },
             );
@@ -55,9 +56,10 @@ module.exports = {
             return res.status(500).json(error);
         }
     },
+    // delete user by id
     async deleteUser(req, res) {
         try {
-            const user = User.findOneAndRemove({ _id: req.params.id });
+            const user = User.findOneAndRemove({ _id: req.params.userId });
             
             if(!user) {
                 return res.status(404).json({ message: 'No user with that ID' })
@@ -69,4 +71,42 @@ module.exports = {
             return res.status(500).json(error);
         }
     },
+    // add user(friend) to current user friend list
+    async addFriend(req, res) {
+        try {
+            const user = await User.findOneAndUpdate(
+                { _id: req.params.userId },
+                { $addToSet: { friends: req.params.friendId }},
+                { new: true }
+            );
+
+            if(!user) {
+                return res(404).json({ message: 'No user with that ID' });;
+            };
+
+            res.json(user);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json(error);
+        }
+    },
+    // remove user(friend) from current user friend list
+    async deleteFriend(req, res) {
+        try {
+            const user = await User.findOneAndUpdate(
+                { _id: req.params.userId },
+                { $pull: { friends: req.params.friendId }},
+                { new: true },
+            );
+
+            if(!user) {
+                return res.status(404).json({ message: 'No user with that ID' });
+            };
+
+            res.json(user);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json(error);
+        }
+    }
 }
