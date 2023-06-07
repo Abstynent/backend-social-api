@@ -17,7 +17,7 @@ module.exports = {
             const user = await User.findOne({ _id: req.params.id});
 
             if(!user) {
-                return res.status(404).json({ message: 'No user with that ID'});
+                return res.status(404).json({ message: 'No user with that ID' });
             }
 
             res.json(user);
@@ -38,7 +38,22 @@ module.exports = {
         }
     },
     async updateUser(req, res) {
+        try {
+            const user = await User.findOneAndUpdate(
+                { _id: req.params.id },
+                req.body,
+                { new: true },
+            );
 
+            if(!user) {
+                return res.status(404).json({ message: 'No user with that ID' })
+            }
+
+            return res.json(user);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json(error);
+        }
     },
     async deleteUser(req, res) {
 
