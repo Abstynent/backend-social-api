@@ -11,6 +11,7 @@ module.exports = {
             return res.status(500).json(error);
         }
     },
+    // func to handle post route to create thought
     async createThought(req, res) {
         try {
             const thought = await Thought.create(req.body);
@@ -28,5 +29,42 @@ module.exports = {
             console.log(error);
             return res.status(500).json(error);
         }
-    }
+    },
+    async getSingleThought(req, res) {
+        try {
+            const thought = await Thought.findOne(
+                { _id: req.params.thoughtId }
+            );
+
+            if(!thought) {
+                res.status(404).json({ message: "No thought with that ID "});
+            };
+
+            res.json(thought);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json(error);
+        }
+    },
+    async updateSingleThought(req, res) {
+        try {
+            const thought = await Thought.findByIdAndUpdate(
+                { _id: req.params.thoughtId },
+                req.body,
+                { new: true },
+            );
+
+            if(!thought) {
+                res.status(404).json({ message: "No thought with that ID "});
+            };
+
+            res.json(thought);
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json(error);
+        }
+    },
+    async deleteSingleThought(req, res) {
+
+    },
 };
