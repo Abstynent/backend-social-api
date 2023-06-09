@@ -60,13 +60,15 @@ module.exports = {
     // delete user by id
     async deleteUser(req, res) {
         try {
-            const user = User.findOneAndRemove({ _id: req.params.userId });
+            const user = await User.findOneAndRemove({ _id: req.params.userId });
             
             if(!user) {
                 return res.status(404).json({ message: 'No user with that ID' })
             }
 
-            res.json({ message: 'User successfully deleted' });
+            const thoughts = await Thought.deleteMany({ userId: user._id })
+
+            res.json({ message: `User successfully deleted with ${thoughts.deletedCount} thought(s).` });
         } catch (error) {
             console.log(error);
             return res.status(500).json(error);
