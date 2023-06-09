@@ -27,8 +27,13 @@ connection.once('open', async () => {
         const thought = await Thought.create({
             thoughtText: thoughts[i],
             username: user.username,
-            userId: user._id.toString(),
+            userId: user._id,
         });
+        const updatedUser = await User.findOneAndUpdate(
+            { _id: user._id },
+            { $addToSet: { thoughts: thought._id }},
+            { new: true },
+        );
     };
 
     console.timeEnd('seeding complete 🌱');
