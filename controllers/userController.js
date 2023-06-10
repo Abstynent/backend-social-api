@@ -84,7 +84,7 @@ module.exports = {
             );
 
             if(!user) {
-                return res(404).json({ message: 'No user with that ID' });;
+                return res.status(404).json({ message: 'No user with that ID' });;
             };
 
             res.json(user);
@@ -106,7 +106,7 @@ module.exports = {
                 return res.status(404).json({ message: 'No user with that ID' });
             };
 
-            res.json(user);
+            res.json({ message: `Friend connection removed.\nUser ${req.params.userId} is no longer connected with ${req.params.friendId} `});
         } catch (error) {
             console.log(error);
             return res.status(500).json(error);

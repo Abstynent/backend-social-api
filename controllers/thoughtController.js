@@ -127,7 +127,7 @@ module.exports = {
                 res.status(404).json({ message: "No thought with that ID "});
             };
 
-            res.json(thought);
+            res.json({ message: `Reaction with ID: ${req.params.reactionId} removed from thought ${req.params.thoughtId}`});
         } catch (error) {
             console.log(error);
             return res.status(500).json(error);
