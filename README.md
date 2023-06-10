@@ -5,6 +5,10 @@
   ## Description
   The project is a social networking API that focuses on the backend implemetation. It has been developed using JavaScript, specifically with the Express server framework and MongoDB as the database, utilizing the Mongoose package as an Object Data Modeling tool.
 
+
+https://github.com/Abstynent/backend-social-api/assets/87772337/6036382d-0845-45f3-af16-65e0fb382ded
+
+
   ## Table of Contents
   * [Installation](#installation)
   * [Usage](#usage)
