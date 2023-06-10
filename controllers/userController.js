@@ -21,7 +21,8 @@ module.exports = {
             if(!user) {
                 return res.status(404).json({ message: 'No user with that ID' });
             }
-
+            
+            console.log(user);
             res.json(user);
         } catch (error) {
             console.log(error);
@@ -32,6 +33,9 @@ module.exports = {
     async createUser(req, res) {
         try {
             const user = await User.create(req.body);
+
+            console.log(`✅ New user with ID ${user._id} created!`);
+
             res.json(user);
         } catch (error) {
             console.log(error);
@@ -51,6 +55,7 @@ module.exports = {
                 return res.status(404).json({ message: 'No user with that ID' })
             }
 
+            console.log(`✅ User with ID ${req.params.userId} updated!`);
             return res.json(user);
         } catch (error) {
             console.log(error);
@@ -68,6 +73,7 @@ module.exports = {
 
             const thoughts = await Thought.deleteMany({ userId: user._id })
 
+            console.log(`✅ User successfully deleted with ${thoughts.deletedCount} thought(s).` )
             res.json({ message: `User successfully deleted with ${thoughts.deletedCount} thought(s).` });
         } catch (error) {
             console.log(error);
@@ -87,6 +93,7 @@ module.exports = {
                 return res.status(404).json({ message: 'No user with that ID' });;
             };
 
+            console.log(`✅ Friend connection between user ${req.params.userId} and ${req.params.friendId} successfully created!`)
             res.json(user);
         } catch (error) {
             console.log(error);
@@ -105,8 +112,8 @@ module.exports = {
             if(!user) {
                 return res.status(404).json({ message: 'No user with that ID' });
             };
-
-            res.json({ message: `Friend connection removed. User ${req.params.userId} is no longer connected with ${req.params.friendId} `});
+            console.log(`✅ Friend connection successfully removed. User ${req.params.userId} is no longer connected with ${req.params.friendId}.`)
+            res.json({ message: `Friend connection successfully removed. User ${req.params.userId} is no longer connected with ${req.params.friendId}.`});
         } catch (error) {
             console.log(error);
             return res.status(500).json(error);

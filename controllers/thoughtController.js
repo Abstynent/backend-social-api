@@ -24,6 +24,7 @@ module.exports = {
             if(!user) {
                 return res.status(404).json({ message: "No user with that username "})
             }
+            console.log(`✅ New thought with ID ${thought._id} created by user ID ${user._id}`);
             res.json(thought);
         } catch (error) {
             console.log(error);
@@ -60,6 +61,7 @@ module.exports = {
                 res.status(404).json({ message: "No thought with that ID "});
             };
 
+            console.log(`✅ Thought with ID ${req.params.thoughtId} successfully updated!`);
             res.json(thought);
         } catch (error) {
             console.log(error);
@@ -87,6 +89,7 @@ module.exports = {
                 return res.status(404).json({ message: 'No user with that ID' })
             }
 
+            console.log(`✅ Thought with ID ${req.params.thoughtId} successfully removed!`);
             res.json({ message: "Thought successfully deleted!" });
         } catch (error) {
             console.log(error);
@@ -107,6 +110,7 @@ module.exports = {
                 res.status(404).json({ message: "No thought with that ID "});
             };
 
+            console.log(`✅ Reaction successfully added to thought ID ${req.params.thoughtId}!`);
             res.json(thought);
         } catch (error) {
             console.log(error);
@@ -127,7 +131,8 @@ module.exports = {
                 res.status(404).json({ message: "No thought with that ID "});
             };
 
-            res.json({ message: `Reaction with ID: ${req.params.reactionId} removed from thought ${req.params.thoughtId}`});
+            console.log(`✅ Reaction with ID: ${req.params.reactionId} succesfully removed from thought ${req.params.thoughtId}`)
+            res.json({ message: `Reaction with ID: ${req.params.reactionId} successfully removed from thought ${req.params.thoughtId}`});
         } catch (error) {
             console.log(error);
             return res.status(500).json(error);
